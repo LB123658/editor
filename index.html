@@ -64,8 +64,8 @@ body {
 #open {
 position: fixed;
 top: 0px;
-left: 1%;
-width: 98%;
+left: 2%;
+width: 96%;
 height: 100%;
 z-index: 100;
 background: #40424a;
@@ -126,6 +126,9 @@ text-align: left;
 #files button:hover {
 background: #282828;
 }
+#main {
+visibility: hidden;
+}
 </style>
 </head>
 <body>
@@ -149,6 +152,7 @@ background: #282828;
 <script>
 var input = document.getElementById("input");
 var output = document.getElementById("output");
+var main = document.getElementById("main");
 
 function size() {
 input.style.height = window.innerHeight - 110 + "px";
@@ -163,6 +167,7 @@ localStorage.setItem("files","<button onclick='openFile(\"" + document.getElemen
 localStorage.setItem(document.getElementById("name").value,"");
 document.getElementById("open").style.visibility = "hidden";
 document.getElementsByTagName("title")[0].innerHTML = document.getElementById("name").value + " - File";
+main.style.visibility = "visible";
 }
 
 document.getElementById("files").innerHTML = localStorage.getItem("files").split("null")[0];
@@ -171,6 +176,7 @@ function openFile(n) {
 document.getElementById("open").style.visibility = "hidden";
 input.value = localStorage.getItem(n);
 document.getElementsByTagName("title")[0].innerHTML = n + " - File";
+main.style.visibility = "visible";
 }
 
 function run() {
