@@ -83,6 +83,8 @@ function run() {
 var code = input.value;
 output.contentWindow.location = "about:blank";
 output.contentWindow.document.write(code);
+localStorage.setItem("current_code",code);
+console.log("Code saved to local storage");
 }
 </script>
 </body>
