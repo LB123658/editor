@@ -42,10 +42,20 @@ body {
   border: none;
 }
 #run {
-  position: absolute;
   left: 210px;
+}
+#preview {
+  left: 320px;
+}
+#download {
+  left: 430px;
+}
+.button{
+  position: absolute;
+  left: 420px;
   top: 20px;
   height: 50px;
+  width: 100px;
   color: white;
   border: none;
   background: #30cf6a;
@@ -54,11 +64,11 @@ body {
   font-size: 18px;
   transition: transform 0.2s, border-radius 0.2s;
 }
-#run:hover {
+.button:hover {
   transform: scale(0.9);
   border-radius: 10px;
 }
-#run:focus {
+.button:focus {
   opacity: 0.75;
 }
 #open {
@@ -133,8 +143,10 @@ visibility: hidden;
 </head>
 <body>
 <div id="main">
-<h1 class="theme">CodeEditor</h1>
-<button id="run" onclick="run();">Run code</button>
+<h1 class="theme" style="cursor:pointer;user-select:none;-webkit-user-select:none;width:200px;" title="Home page" onclick="location.reload()">CodeEditor</h1>
+<button class="button" id="run" onclick="run();">Run code</button>
+<button class="button" id="preview" onclick="openWindow();">Preview</button>
+<button class="button" id="download" onclick="downloadHtml(input.value,document.getElementsByTagName('title')[0].innerHTML.split(' -')[0])">Download</button>
 
 <textarea id="input" placeholder="Write code here..."></textarea>
 <iframe id="output"></iframe>
@@ -187,6 +199,27 @@ localStorage.setItem(document.getElementsByTagName("title")[0].innerHTML.split("
 console.log("Code saved to local storage");
 }
 
+function openWindow() {
+myWindow = window.open("myWindow");
+myWindow.document.write(input.value);
+}
+
+
+function downloadHtml(textToWrite, fileNameToSaveAs) {
+  var textFileAsBlob = new Blob([textToWrite], {type:'text/html'}); 
+  var downloadLink = document.createElement("a");
+  downloadLink.download = fileNameToSaveAs;
+  downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null) {
+      downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+      downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+      downloadLink.onclick = destroyClickedElement;
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+    }  
+  downloadLink.click();
+} 
 
 </script>
 </body>
