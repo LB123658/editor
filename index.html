@@ -202,6 +202,10 @@ z-index: 102;
 </div>
 
 <script>
+//load page
+setTimeout(function(){document.getElementById("loading-background").remove();},2000);
+
+
 var input = document.getElementById("input");
 var output = document.getElementById("output");
 var main = document.getElementById("main");
@@ -260,9 +264,6 @@ function downloadHtml(textToWrite, fileNameToSaveAs) {
     }  
   downloadLink.click();
 } 
-
-//load page
-setTimeout(function(){document.getElementById("loading-background").remove();},2000);
 
 //load file number
 document.getElementById("fileNumber").innerHTML = "You have " + document.getElementById("files").children.length + " total files"
