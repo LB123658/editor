@@ -116,7 +116,7 @@ height: 30px;
 }
 #files {
 width: 99.6%;
-height: 70%;
+height: 200px;
 border: 1px solid #30cf6a;
 font-family: 'Source Code Pro', monospace;
 color: #30cf6a;
@@ -140,6 +140,38 @@ background: #282828;
 #main {
 visibility: hidden;
 }
+
+#loading-background {
+position: fixed;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: #40424a;
+font-family: 'Source Code Pro', monospace;
+user-select: none;
+-webkit-user-select: none;
+color: #30cf6a;
+z-index: 101;
+cursor: none;
+}
+#loading-circle {
+position: absolute;
+top: 50%;
+left: 50%;
+width: 200px;
+height: 200px;
+border-radius: 50%;
+margin: -100px -100px;
+background: #30cf6a;
+animation: pulse 1.5s infinite;
+z-index: 102;
+}
+@keyframes pulse {
+0% {transform: scale(1)}
+50% {transform: scale(1.1);opacity:0.8}
+100% {transform: scale(1)}
+}
 </style>
 </head>
 <body>
@@ -160,6 +192,13 @@ visibility: hidden;
 
 <h2>Open a file</h2>
 <div id="files">You don't have any files</div>
+
+<h2 id="fileNumber">You have 0 total files</h2>
+</div>
+
+<!-- loading screen -->
+<div id="loading-background">
+<div id="loading-circle"></div>
 </div>
 
 <script>
@@ -188,8 +227,9 @@ document.getElementById("files").innerHTML = localStorage.getItem("files").split
 function openFile(n) {
 document.getElementById("open").style.visibility = "hidden";
 input.value = localStorage.getItem(n);
-document.getElementsByTagName("title")[0].innerHTML = n + " - File";
+document.getElementsByTagName("title")[0].innerHTML = n + " - File (" + Math.floor(new TextEncoder().encode(localStorage.getItem(n)).length / 1024) + " KB)";
 main.style.visibility = "visible";
+run();
 }
 
 function run() {
@@ -220,6 +260,12 @@ function downloadHtml(textToWrite, fileNameToSaveAs) {
     }  
   downloadLink.click();
 } 
+
+//load page
+setTimeout(function(){document.getElementById("loading-background").remove();},2000);
+
+//load file number
+document.getElementById("fileNumber").innerHTML = "You have " + document.getElementById("files").children.length + " total files"
 </script>
 </body>
 </html>
