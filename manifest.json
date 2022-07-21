@@ -1,0 +1,22 @@
+{
+	"name":"CodeEditor",
+	"short_name":"Edit and save code online.",
+	"start_url":"index.html",
+	"display":"standalone",
+	"background_color":"#40424a",
+	"theme_color":"#40424a",
+	"scope": ".",
+	"description":"A free online code editor that lets you save and download files.",
+	"icons":[
+	{
+	"src":"images/icon-192x192.png",					
+	"sizes":"192x192",
+	"type":"image/png"
+	},
+	{
+	"src":"images/icon-512x512.png",
+	"sizes":"512x512",
+	"type":"image/png"
+	}
+]
+}
